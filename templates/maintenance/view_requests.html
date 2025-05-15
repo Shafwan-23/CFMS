@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Maintenance Requests - CFMS{% endblock %}
+
+{% block content %}
+<h1>Maintenance Requests</h1>
+
+<div class="card">
+    <div class="card-header">Assigned Requests</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Facility</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Comment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request.facility_name }}</td>
+                    <td>{{ request.description }}</td>
+                    <td>{{ request.status | capitalize }}</td>
+                    <td>{{ request.comment or 'None' }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('maintenance_requests') }}" style="display:inline;">
+                            <input type="hidden" name="request_id" value="{{ request.id }}">
+                            
+                            <select name="status" required>
+                                <option value="pending" {% if request.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="in_progress" {% if request.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                                <option value="resolved" {% if request.status == 'resolved' %}selected{% endif %}>Resolved</option>
+                            </select>
+                            
+                            <input type="text" name="comment" placeholder="Add comment" value="{{ request.comment or '' }}" class="form-control d-inline-block w-auto ml-2">
+                            
+                            <button type="submit" class="btn btn-sm btn-primary ml-2">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
