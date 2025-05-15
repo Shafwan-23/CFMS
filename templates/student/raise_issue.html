@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %}Raise Maintenance Issue - CFMS{%
+endblock %} {% block content %}
+<h1>Raise a Maintenance Issue</h1>
+
+<div class="card">
+  <div class="card-header">Issue Form</div>
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('raise_issue') }}">
+      <div class="form-group">
+        <label for="facility_id">Facility</label>
+        <select
+          class="form-control"
+          id="facility_id"
+          name="facility_id"
+          required
+        >
+          <option value="">Select Facility</option>
+          {% for facility in facilities %}
+          <option value="{{ facility.id }}">
+            {{ facility.name }} ({{ facility.type | capitalize }})
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          name="description"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit Issue</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
