@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block title %}View Issues - CFMS{% endblock %} {%
+block content %}
+<h1>Your Maintenance Issues</h1>
+
+<div class="card">
+  <div class="card-header">Submitted Issues</div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Facility</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for issue in issues %}
+        <tr>
+          <td>{{ issue.facility_name }}</td>
+          <td>{{ issue.description }}</td>
+          <td>{{ issue.status | capitalize }}</td>
+          <td>{{ issue.comment or 'None' }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
