@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block title %}Maintenance Dashboard - CFMS{%
+endblock %} {% block content %}
+<h1>Maintenance Dashboard</h1>
+
+<div class="card">
+  <div class="card-header">Assigned Maintenance Requests</div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Facility</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in requests %}
+        <tr>
+          <td>{{ request.facility_name }}</td>
+          <td>{{ request.description }}</td>
+          <td>{{ request.status | capitalize }}</td>
+          <td>
+            <a
+              href="{{ url_for('maintenance_requests') }}"
+              class="btn btn-sm btn-primary"
+              >Update</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
