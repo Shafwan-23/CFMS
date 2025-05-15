@@ -1,0 +1,62 @@
+{% extends 'base.html' %} {% block title %}Admin Dashboard - CFMS{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+<div class="dashboard-stats">
+  <div class="card">
+    <div class="card-header">Total Users</div>
+    <div class="card-body">
+      <h3>{{ user_count }}</h3>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">Total Facilities</div>
+    <div class="card-body">
+      <h3>{{ facility_count }}</h3>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">Pending Maintenance Requests</div>
+    <div class="card-body">
+      <h3>{{ request_count }}</h3>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <a href="{{ url_for('manage_users') }}" class="btn btn-primary w-100 mb-3"
+      >Manage Users</a
+    >
+  </div>
+  <div class="col-md-4">
+    <a
+      href="{{ url_for('manage_facilities') }}"
+      class="btn btn-primary w-100 mb-3"
+      >Manage Facilities</a
+    >
+  </div>
+  <div class="col-md-4">
+    <a
+      href="{{ url_for('manage_maintenance') }}"
+      class="btn btn-primary w-100 mb-3"
+      >Manage Maintenance</a
+    >
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <a href="{{ url_for('manage_assets') }}" class="btn btn-primary w-100 mb-3"
+      >Manage Assets</a
+    >
+  </div>
+  <div class="col-md-4">
+    <a href="{{ url_for('reports') }}" class="btn btn-primary w-100 mb-3"
+      >View Reports</a
+    >
+  </div>
+  <div class="col-md-4">
+    <a href="{{ url_for('announcements') }}" class="btn btn-primary w-100 mb-3"
+      >Manage Announcements</a
+    >
+  </div>
+</div>
+{% endblock %}

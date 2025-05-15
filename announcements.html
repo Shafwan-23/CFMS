@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block title %}Manage Announcements - CFMS{%
+endblock %} {% block content %}
+<h1>Manage Announcements</h1>
+
+<!-- Add Announcement Form -->
+<div class="card mb-4">
+  <div class="card-header">Post New Announcement</div>
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('announcements') }}">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="content">Content</label>
+        <textarea
+          class="form-control"
+          id="content"
+          name="content"
+          rows="5"
+          required
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">
+        Post Announcement
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Announcements List -->
+<div class="card">
+  <div class="card-header">Existing Announcements</div>
+  <div class="card-body">
+    {% for announcement in announcements %}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{ announcement.title }}
+        <small>({{ announcement.created_at }})</small>
+      </div>
+      <div class="card-body">
+        <p>{{ announcement.content }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

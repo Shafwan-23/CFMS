@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block title %}Reports - CFMS{% endblock %} {% block
+content %}
+<h1>Facility Usage Reports</h1>
+
+<div class="card">
+  <div class="card-header">Facility Booking Statistics</div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Facility Name</th>
+          <th>Number of Bookings</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for usage in facility_usage %}
+        <tr>
+          <td>{{ usage.name }}</td>
+          <td>{{ usage.bookings }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

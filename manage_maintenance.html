@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Maintenance Requests - CFMS{% endblock %}
+
+{% block content %}
+<h1>Manage Maintenance Requests</h1>
+
+<!-- Maintenance Requests Table -->
+<div class="card">
+    <div class="card-header">Maintenance Requests</div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Submitted By</th>
+                    <th>Facility</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Assigned To</th>
+                    <th>Comment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request.user_name }}</td>
+                    <td>{{ request.facility_id }}</td>
+                    <td>{{ request.description }}</td>
+                    <td>{{ request.status | capitalize }}</td>
+                    <td>{{ request.assigned_to or 'Unassigned' }}</td>
+                    <td>{{ request.comment or 'None' }}</td>
+                    <td>
+                        <!-- Update Form -->
+                        <form method="POST" action="{{ url_for('manage_maintenance') }}" style="display:inline;">
+                            <input type="hidden" name="request_id" value="{{ request.id }}">
+                            <select name="status" required>
+                                <option value="pending" {% if request.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="in_progress" {% if request.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                                <option value="resolved" {% if request.status == 'resolved' %}selected{% endif %}>Resolved</option>
+                            </select>
+                            <select name="assigned_to">
+                                <option value="">Unassign</option>
+                                {% for staff in maintenance_staff %}
+                                <option value="{{ staff.id }}" {% if request.assigned_to == staff.id %}selected{% endif %}>{{ staff.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block title %}Manage Assets - CFMS{% endblock %} {%
+block content %}
+<h1>Manage Assets</h1>
+
+<!-- Add Asset Form -->
+<div class="card mb-4">
+  <div class="card-header">Add New Asset</div>
+  <div class="card-body">
+    <form method="POST" action="{{ url_for('manage_assets') }}">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Asset Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="type">Type</label>
+            <input
+              type="text"
+              class="form-control"
+              id="type"
+              name="type"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <button type="submit" name="add" class="btn btn-primary mt-3">
+        Add Asset
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Assets Table -->
+<div class="card">
+  <div class="card-header">Existing Assets</div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for asset in assets %}
+        <tr>
+          <td>{{ asset.name }}</td>
+          <td>{{ asset.type }}</td>
+          <td>
+            <!-- Delete Form -->
+            <form
+              method="POST"
+              action="{{ url_for('manage_assets') }}"
+              style="display: inline"
+            >
+              <input type="hidden" name="asset_id" value="{{ asset.id }}" />
+              <button
+                type="submit"
+                name="delete"
+                class="btn btn-sm btn-danger delete-btn"
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
