@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block title %}Announcements - CFMS{% endblock %} {%
+block content %}
+<h1>Announcements</h1>
+
+<div class="card">
+  <div class="card-header">Latest Announcements</div>
+  <div class="card-body">
+    {% for announcement in announcements %}
+    <div class="card mb-3">
+      <div class="card-header">
+        {{ announcement.title }}
+        <small>({{ announcement.created_at }})</small>
+      </div>
+      <div class="card-body">
+        <p>{{ announcement.content }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
