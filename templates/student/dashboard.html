@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block title %}Student Dashboard - CFMS{% endblock
+%} {% block content %}
+<h1>Student Dashboard</h1>
+
+<div class="card">
+  <div class="card-header">Available Facilities</div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for facility in facilities %}
+        <tr>
+          <td>{{ facility.name }}</td>
+          <td>{{ facility.type | capitalize }}</td>
+          <td>
+            <a
+              href="{{ url_for('book_facility') }}"
+              class="btn btn-sm btn-primary"
+              >Book</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-4">
+    <a href="{{ url_for('book_facility') }}" class="btn btn-primary w-100 mb-3"
+      >Book Facility</a
+    >
+  </div>
+  <div class="col-md-4">
+    <a href="{{ url_for('raise_issue') }}" class="btn btn-primary w-100 mb-3"
+      >Raise Issue</a
+    >
+  </div>
+  <div class="col-md-4">
+    <a
+      href="{{ url_for('view_student_announcements') }}"
+      class="btn btn-primary w-100 mb-3"
+      >View Announcements</a
+    >
+  </div>
+</div>
+{% endblock %}
